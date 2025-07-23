@@ -1,0 +1,731 @@
+INFO - 03/20/25 16:13:14 - 0:00:00 - Start evaluation runs/attention_activity_all_main
+INFO - 03/20/25 16:13:14 - 0:00:00 - AV: False
+                                     AVCA: False
+                                     DFCNet: True
+                                     ale: False
+                                     apn: False
+                                     audio_baseline: False
+                                     baseline: False
+                                     bs: 256
+                                     cjme: False
+                                     concatenated_baseline: False
+                                     dataset_name: ActivityNet
+                                     device: cuda
+                                     devise: False
+                                     drop_last: True
+                                     eval_name: None
+                                     load_path_stage_A: runs/attention_activity_val_main
+                                     load_path_stage_B: runs/attention_activity_all_main
+                                     new_model: False
+                                     new_model_early_fusion: False
+                                     new_model_middle_fusion: False
+                                     num_workers: 8
+                                     pin_memory: True
+                                     root_dir: None
+                                     save_performances: False
+                                     sje: False
+                                     video_baseline: False
+INFO - 03/20/25 16:13:14 - 0:00:00 - Loaded configuration runs/attention_activity_all_main/args.pkl
+INFO - 03/20/25 16:13:14 - 0:00:00 - AV: False
+                                     AVCA: False
+                                     DFCNet: True
+                                     additional_dropout: 0.1
+                                     additional_triplets_loss: True
+                                     ale: False
+                                     apn: False
+                                     audio_baseline: False
+                                     baseline: False
+                                     bs: 256
+                                     cjme: False
+                                     concatenated_baseline: False
+                                     cycle_loss: False
+                                     dataset_name: ActivityNet
+                                     debug: False
+                                     debug_comment: 
+                                     decoder_dropout: 0.2
+                                     decoder_hidden_size: 512
+                                     decoder_use_bn: False
+                                     depth_transformer: 1
+                                     device: cuda
+                                     devise: False
+                                     distance_fn: L2Loss
+                                     dropout_baselines: 0.2
+                                     dump_path: .
+                                     embedding_dropout: 0.2
+                                     embedding_use_bn: False
+                                     embeddings_hidden_size: 512
+                                     epochs: 60
+                                     exp_name: attention_activity_all_main
+                                     feature_extraction_method: main_features
+                                     first_additional_triplet: 1
+                                     input_size: None
+                                     input_size_audio: 512
+                                     input_size_video: 512
+                                     lr: 0.001
+                                     lr_scheduler: True
+                                     manual_text_word2vec: False
+                                     margin: 1.0
+                                     momentum: 0.99
+                                     n_batches: 100
+                                     new_model: False
+                                     new_model_attention_both_heads: False
+                                     new_model_early_fusion: False
+                                     new_model_middle_fusion: False
+                                     norm_inputs: False
+                                     normalize_decoder_outputs: False
+                                     reg_loss: True
+                                     retrain_all: True
+                                     root_dir: avgzsl_benchmark_datasets/ActivityNet
+                                     save_checkpoints: True
+                                     second_additional_triplet: 1
+                                     seed: 42
+                                     sje: False
+                                     third_additional_triplet: 1
+                                     val_all_loss: False
+                                     verbose: False
+                                     video_baseline: False
+                                     z_score_inputs: False
+                                     zero_shot_split: main_split
+INFO - 03/20/25 16:13:14 - 0:00:00 - The evaluation will be stored in /root/autodl-tmp/DFCNet_PMR/runs/attention_activity_all_main
+                                     
+
+INFO - 03/20/25 16:13:14 - 0:00:00 - Initializing Dataset ActivityNetDataset	Dataset split: val	Zero shot mode: None
+INFO - 03/20/25 16:13:14 - 0:00:00 - Loading processed data from disk from /root/autodl-tmp/DFCNet_PMR/avgzsl_benchmark_datasets/ActivityNet/_features_processed/main_features/valmain_split.pkl
+INFO - 03/20/25 16:13:14 - 0:00:00 - Initializing Dataset ActivityNetDataset	Dataset split: test	Zero shot mode: None
+INFO - 03/20/25 16:13:14 - 0:00:00 - Loading processed data from disk from /root/autodl-tmp/DFCNet_PMR/avgzsl_benchmark_datasets/ActivityNet/_features_processed/main_features/testmain_split.pkl
+INFO - 03/20/25 16:13:14 - 0:00:00 - DFCNet(
+                                       (cfb_audio): CFB(
+                                         (proj_i): Sequential(
+                                           (0): Linear(in_features=500, out_features=10000, bias=True)
+                                           (1): LayerNorm((10000,), eps=1e-05, elementwise_affine=True)
+                                           (2): ReLU(inplace=True)
+                                         )
+                                         (proj_q): Sequential(
+                                           (0): Linear(in_features=500, out_features=10000, bias=True)
+                                           (1): LayerNorm((10000,), eps=1e-05, elementwise_affine=True)
+                                           (2): ReLU(inplace=True)
+                                         )
+                                         (dropout): Dropout(p=0.5, inplace=False)
+                                         (pool): AvgPool1d(kernel_size=(10,), stride=(10,), padding=(0,))
+                                         (cross_attention): Transformer(
+                                           (layers): ModuleList(
+                                             (0): ModuleList(
+                                               (0): PreNorm(
+                                                 (norm): LayerNorm((10000,), eps=1e-05, elementwise_affine=True)
+                                                 (fn): Attention(
+                                                   (attend): Softmax(dim=-1)
+                                                   (to_qkv): Linear(in_features=10000, out_features=900, bias=False)
+                                                   (to_out): Sequential(
+                                                     (0): Linear(in_features=300, out_features=10000, bias=True)
+                                                     (1): Dropout(p=0.2, inplace=False)
+                                                   )
+                                                 )
+                                               )
+                                               (1): PreNorm(
+                                                 (norm): LayerNorm((10000,), eps=1e-05, elementwise_affine=True)
+                                                 (fn): FeedForward(
+                                                   (net): Sequential(
+                                                     (0): Linear(in_features=10000, out_features=64, bias=True)
+                                                     (1): GELU()
+                                                     (2): Dropout(p=0.2, inplace=False)
+                                                     (3): Linear(in_features=64, out_features=10000, bias=True)
+                                                     (4): Dropout(p=0.2, inplace=False)
+                                                   )
+                                                 )
+                                               )
+                                             )
+                                           )
+                                         )
+                                         (fc): Linear(in_features=1000, out_features=500, bias=True)
+                                       )
+                                       (cfb_video): CFB(
+                                         (proj_i): Sequential(
+                                           (0): Linear(in_features=500, out_features=10000, bias=True)
+                                           (1): LayerNorm((10000,), eps=1e-05, elementwise_affine=True)
+                                           (2): ReLU(inplace=True)
+                                         )
+                                         (proj_q): Sequential(
+                                           (0): Linear(in_features=500, out_features=10000, bias=True)
+                                           (1): LayerNorm((10000,), eps=1e-05, elementwise_affine=True)
+                                           (2): ReLU(inplace=True)
+                                         )
+                                         (dropout): Dropout(p=0.5, inplace=False)
+                                         (pool): AvgPool1d(kernel_size=(10,), stride=(10,), padding=(0,))
+                                         (cross_attention): Transformer(
+                                           (layers): ModuleList(
+                                             (0): ModuleList(
+                                               (0): PreNorm(
+                                                 (norm): LayerNorm((10000,), eps=1e-05, elementwise_affine=True)
+                                                 (fn): Attention(
+                                                   (attend): Softmax(dim=-1)
+                                                   (to_qkv): Linear(in_features=10000, out_features=900, bias=False)
+                                                   (to_out): Sequential(
+                                                     (0): Linear(in_features=300, out_features=10000, bias=True)
+                                                     (1): Dropout(p=0.2, inplace=False)
+                                                   )
+                                                 )
+                                               )
+                                               (1): PreNorm(
+                                                 (norm): LayerNorm((10000,), eps=1e-05, elementwise_affine=True)
+                                                 (fn): FeedForward(
+                                                   (net): Sequential(
+                                                     (0): Linear(in_features=10000, out_features=64, bias=True)
+                                                     (1): GELU()
+                                                     (2): Dropout(p=0.2, inplace=False)
+                                                     (3): Linear(in_features=64, out_features=10000, bias=True)
+                                                     (4): Dropout(p=0.2, inplace=False)
+                                                   )
+                                                 )
+                                               )
+                                             )
+                                           )
+                                         )
+                                         (fc): Linear(in_features=1000, out_features=500, bias=True)
+                                       )
+                                       (audio_enc): EmbeddingNet(
+                                         (fc): Sequential(
+                                           (0): Linear(in_features=512, out_features=512, bias=True)
+                                           (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                                           (2): ReLU()
+                                           (3): Dropout(p=0.2, inplace=False)
+                                           (4): Linear(in_features=512, out_features=500, bias=True)
+                                           (5): BatchNorm1d(500, eps=1e-05, momentum=0.99, affine=True, track_running_stats=True)
+                                           (6): ReLU()
+                                           (7): Dropout(p=0.2, inplace=False)
+                                         )
+                                       )
+                                       (video_enc): EmbeddingNet(
+                                         (fc): Sequential(
+                                           (0): Linear(in_features=512, out_features=512, bias=True)
+                                           (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                                           (2): ReLU()
+                                           (3): Dropout(p=0.2, inplace=False)
+                                           (4): Linear(in_features=512, out_features=500, bias=True)
+                                           (5): BatchNorm1d(500, eps=1e-05, momentum=0.99, affine=True, track_running_stats=True)
+                                           (6): ReLU()
+                                           (7): Dropout(p=0.2, inplace=False)
+                                         )
+                                       )
+                                       (cross_attention): Transformer(
+                                         (layers): ModuleList(
+                                           (0): ModuleList(
+                                             (0): PreNorm(
+                                               (norm): LayerNorm((500,), eps=1e-05, elementwise_affine=True)
+                                               (fn): Attention(
+                                                 (attend): Softmax(dim=-1)
+                                                 (to_qkv): Linear(in_features=500, out_features=900, bias=False)
+                                                 (to_out): Sequential(
+                                                   (0): Linear(in_features=300, out_features=500, bias=True)
+                                                   (1): Dropout(p=0.2, inplace=False)
+                                                 )
+                                               )
+                                             )
+                                             (1): PreNorm(
+                                               (norm): LayerNorm((500,), eps=1e-05, elementwise_affine=True)
+                                               (fn): FeedForward(
+                                                 (net): Sequential(
+                                                   (0): Linear(in_features=500, out_features=64, bias=True)
+                                                   (1): GELU()
+                                                   (2): Dropout(p=0.2, inplace=False)
+                                                   (3): Linear(in_features=64, out_features=500, bias=True)
+                                                   (4): Dropout(p=0.2, inplace=False)
+                                                 )
+                                               )
+                                             )
+                                           )
+                                         )
+                                       )
+                                       (W_proj): EmbeddingNet(
+                                         (fc): Sequential(
+                                           (0): Linear(in_features=300, out_features=64, bias=True)
+                                           (1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                                           (2): ReLU()
+                                           (3): Dropout(p=0.1, inplace=False)
+                                         )
+                                       )
+                                       (D): EmbeddingNet(
+                                         (fc): Sequential(
+                                           (0): Linear(in_features=64, out_features=300, bias=True)
+                                           (1): BatchNorm1d(300, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                                           (2): ReLU()
+                                           (3): Dropout(p=0.1, inplace=False)
+                                         )
+                                       )
+                                       (lstm_audio): LSTM(
+                                         (input_adapter): Sequential(
+                                           (0): Linear(in_features=512, out_features=512, bias=True)
+                                           (1): ReLU()
+                                         )
+                                         (bilstm): LSTM(1, 256, num_layers=2, batch_first=True, dropout=0.3)
+                                         (feature_pool): Sequential(
+                                           (0): Linear(in_features=512, out_features=500, bias=True)
+                                           (1): AdaptiveAvgPool1d(output_size=1)
+                                         )
+                                         (cfb_proj): Linear(in_features=256, out_features=500, bias=True)
+                                       )
+                                       (lstm_video): LSTM(
+                                         (input_adapter): Sequential(
+                                           (0): Linear(in_features=512, out_features=512, bias=True)
+                                           (1): ReLU()
+                                         )
+                                         (bilstm): LSTM(1, 256, num_layers=2, batch_first=True, dropout=0.3)
+                                         (feature_pool): Sequential(
+                                           (0): Linear(in_features=512, out_features=500, bias=True)
+                                           (1): AdaptiveAvgPool1d(output_size=1)
+                                         )
+                                         (cfb_proj): Linear(in_features=256, out_features=500, bias=True)
+                                       )
+                                       (audio_proj): EmbeddingNet(
+                                         (fc): Sequential(
+                                           (0): Linear(in_features=500, out_features=512, bias=True)
+                                           (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                                           (2): ReLU()
+                                           (3): Dropout(p=0.2, inplace=False)
+                                           (4): Linear(in_features=512, out_features=64, bias=True)
+                                           (5): BatchNorm1d(64, eps=1e-05, momentum=0.99, affine=True, track_running_stats=True)
+                                           (6): ReLU()
+                                           (7): Dropout(p=0.2, inplace=False)
+                                         )
+                                       )
+                                       (video_proj): EmbeddingNet(
+                                         (fc): Sequential(
+                                           (0): Linear(in_features=500, out_features=512, bias=True)
+                                           (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                                           (2): ReLU()
+                                           (3): Dropout(p=0.2, inplace=False)
+                                           (4): Linear(in_features=512, out_features=64, bias=True)
+                                           (5): BatchNorm1d(64, eps=1e-05, momentum=0.99, affine=True, track_running_stats=True)
+                                           (6): ReLU()
+                                           (7): Dropout(p=0.2, inplace=False)
+                                         )
+                                       )
+                                       (audio_rec): EmbeddingNet(
+                                         (fc): Sequential(
+                                           (0): Linear(in_features=64, out_features=500, bias=True)
+                                           (1): BatchNorm1d(500, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                                           (2): ReLU()
+                                           (3): Dropout(p=0.1, inplace=False)
+                                         )
+                                       )
+                                       (video_rec): EmbeddingNet(
+                                         (fc): Sequential(
+                                           (0): Linear(in_features=64, out_features=500, bias=True)
+                                           (1): BatchNorm1d(500, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                                           (2): ReLU()
+                                           (3): Dropout(p=0.1, inplace=False)
+                                         )
+                                       )
+                                       (a_classifier): ClassificationHead(
+                                         (fc): Linear(in_features=500, out_features=200, bias=True)
+                                         (loss_fn): CrossEntropyLoss()
+                                       )
+                                       (v_classifier): ClassificationHead(
+                                         (fc): Linear(in_features=500, out_features=200, bias=True)
+                                         (loss_fn): CrossEntropyLoss()
+                                       )
+                                       (criterion_reg): MSELoss()
+                                       (triplet_loss): TripletMarginLoss()
+                                       (criterion): CrossEntropyLoss()
+                                     )
+INFO - 03/20/25 16:13:14 - 0:00:00 - Loading model weights from runs/attention_activity_val_main/DFCNet_score.pt
+INFO - 03/20/25 16:13:18 - 0:00:05 - Load from epoch: 11
+INFO - 03/20/25 16:13:18 - 0:00:05 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_0.pt
+INFO - 03/20/25 16:13:19 - 0:00:06 - Load from epoch: 1
+INFO - 03/20/25 16:13:23 - 0:00:09 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:23 - 0:00:09 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:24 - 0:00:10 - 
+                                                 Seen performance=6.53, Unseen performance=5.42, GZSL performance=5.93, ZSL performance=6.38 
+                                                 
+INFO - 03/20/25 16:13:24 - 0:00:10 - FINISHED
+INFO - 03/20/25 16:13:24 - 0:00:10 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_1.pt
+INFO - 03/20/25 16:13:24 - 0:00:10 - Load from epoch: 2
+INFO - 03/20/25 16:13:27 - 0:00:13 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:27 - 0:00:13 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:28 - 0:00:14 - 
+                                                 Seen performance=9.28, Unseen performance=7.79, GZSL performance=8.47, ZSL performance=9.05 
+                                                 
+INFO - 03/20/25 16:13:28 - 0:00:14 - FINISHED
+INFO - 03/20/25 16:13:28 - 0:00:14 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_2.pt
+INFO - 03/20/25 16:13:28 - 0:00:14 - Load from epoch: 3
+INFO - 03/20/25 16:13:31 - 0:00:17 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:31 - 0:00:17 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:32 - 0:00:18 - 
+                                                 Seen performance=11.03, Unseen performance=6.97, GZSL performance=8.54, ZSL performance=8.03 
+                                                 
+INFO - 03/20/25 16:13:32 - 0:00:18 - FINISHED
+INFO - 03/20/25 16:13:32 - 0:00:18 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_3.pt
+INFO - 03/20/25 16:13:32 - 0:00:18 - Load from epoch: 4
+INFO - 03/20/25 16:13:35 - 0:00:21 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:35 - 0:00:21 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:36 - 0:00:22 - 
+                                                 Seen performance=11.45, Unseen performance=7.68, GZSL performance=9.19, ZSL performance=8.56 
+                                                 
+INFO - 03/20/25 16:13:36 - 0:00:22 - FINISHED
+INFO - 03/20/25 16:13:36 - 0:00:22 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_4.pt
+INFO - 03/20/25 16:13:36 - 0:00:22 - Load from epoch: 5
+INFO - 03/20/25 16:13:39 - 0:00:25 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:39 - 0:00:25 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:40 - 0:00:26 - 
+                                                 Seen performance=10.95, Unseen performance=7.63, GZSL performance=8.99, ZSL performance=8.53 
+                                                 
+INFO - 03/20/25 16:13:40 - 0:00:26 - FINISHED
+INFO - 03/20/25 16:13:40 - 0:00:26 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_5.pt
+INFO - 03/20/25 16:13:40 - 0:00:26 - Load from epoch: 6
+INFO - 03/20/25 16:13:43 - 0:00:29 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:43 - 0:00:29 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:44 - 0:00:30 - 
+                                                 Seen performance=11.61, Unseen performance=8.19, GZSL performance=9.60, ZSL performance=9.08 
+                                                 
+INFO - 03/20/25 16:13:44 - 0:00:30 - FINISHED
+INFO - 03/20/25 16:13:44 - 0:00:30 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_6.pt
+INFO - 03/20/25 16:13:44 - 0:00:30 - Load from epoch: 7
+INFO - 03/20/25 16:13:47 - 0:00:33 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:47 - 0:00:33 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:48 - 0:00:34 - 
+                                                 Seen performance=13.05, Unseen performance=8.92, GZSL performance=10.60, ZSL performance=9.75 
+                                                 
+INFO - 03/20/25 16:13:48 - 0:00:34 - FINISHED
+INFO - 03/20/25 16:13:48 - 0:00:34 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_7.pt
+INFO - 03/20/25 16:13:48 - 0:00:34 - Load from epoch: 8
+INFO - 03/20/25 16:13:51 - 0:00:37 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:51 - 0:00:37 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:51 - 0:00:38 - 
+                                                 Seen performance=12.70, Unseen performance=8.50, GZSL performance=10.18, ZSL performance=9.30 
+                                                 
+INFO - 03/20/25 16:13:51 - 0:00:38 - FINISHED
+INFO - 03/20/25 16:13:51 - 0:00:38 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_8.pt
+INFO - 03/20/25 16:13:52 - 0:00:38 - Load from epoch: 9
+INFO - 03/20/25 16:13:55 - 0:00:41 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:55 - 0:00:41 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:55 - 0:00:42 - 
+                                                 Seen performance=13.63, Unseen performance=8.39, GZSL performance=10.39, ZSL performance=9.07 
+                                                 
+INFO - 03/20/25 16:13:55 - 0:00:42 - FINISHED
+INFO - 03/20/25 16:13:55 - 0:00:42 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_9.pt
+INFO - 03/20/25 16:13:55 - 0:00:42 - Load from epoch: 10
+INFO - 03/20/25 16:13:59 - 0:00:45 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:13:59 - 0:00:45 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:13:59 - 0:00:46 - 
+                                                 Seen performance=14.40, Unseen performance=8.26, GZSL performance=10.50, ZSL performance=8.88 
+                                                 
+INFO - 03/20/25 16:13:59 - 0:00:46 - FINISHED
+INFO - 03/20/25 16:13:59 - 0:00:46 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_10.pt
+INFO - 03/20/25 16:13:59 - 0:00:46 - Load from epoch: 11
+INFO - 03/20/25 16:14:02 - 0:00:49 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:02 - 0:00:49 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:03 - 0:00:50 - 
+                                                 Seen performance=14.91, Unseen performance=8.22, GZSL performance=10.60, ZSL performance=8.95 
+                                                 
+INFO - 03/20/25 16:14:03 - 0:00:50 - FINISHED
+INFO - 03/20/25 16:14:03 - 0:00:50 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_11.pt
+INFO - 03/20/25 16:14:03 - 0:00:50 - Load from epoch: 12
+INFO - 03/20/25 16:14:06 - 0:00:53 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:06 - 0:00:53 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:07 - 0:00:53 - 
+                                                 Seen performance=15.20, Unseen performance=8.39, GZSL performance=10.81, ZSL performance=9.20 
+                                                 
+INFO - 03/20/25 16:14:07 - 0:00:53 - FINISHED
+INFO - 03/20/25 16:14:07 - 0:00:53 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_12.pt
+INFO - 03/20/25 16:14:07 - 0:00:54 - Load from epoch: 13
+INFO - 03/20/25 16:14:10 - 0:00:57 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:10 - 0:00:57 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:11 - 0:00:57 - 
+                                                 Seen performance=14.68, Unseen performance=8.66, GZSL performance=10.89, ZSL performance=9.24 
+                                                 
+INFO - 03/20/25 16:14:11 - 0:00:57 - FINISHED
+INFO - 03/20/25 16:14:11 - 0:00:57 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_13.pt
+INFO - 03/20/25 16:14:11 - 0:00:57 - Load from epoch: 14
+INFO - 03/20/25 16:14:14 - 0:01:01 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:14 - 0:01:01 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:15 - 0:01:01 - 
+                                                 Seen performance=16.54, Unseen performance=8.11, GZSL performance=10.89, ZSL performance=8.86 
+                                                 
+INFO - 03/20/25 16:14:15 - 0:01:01 - FINISHED
+INFO - 03/20/25 16:14:15 - 0:01:01 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_14.pt
+INFO - 03/20/25 16:14:15 - 0:01:01 - Load from epoch: 15
+INFO - 03/20/25 16:14:18 - 0:01:04 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:18 - 0:01:04 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:19 - 0:01:05 - 
+                                                 Seen performance=16.67, Unseen performance=8.80, GZSL performance=11.52, ZSL performance=9.62 
+                                                 
+INFO - 03/20/25 16:14:19 - 0:01:05 - FINISHED
+INFO - 03/20/25 16:14:19 - 0:01:05 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_15.pt
+INFO - 03/20/25 16:14:19 - 0:01:05 - Load from epoch: 16
+INFO - 03/20/25 16:14:22 - 0:01:08 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:22 - 0:01:08 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:23 - 0:01:09 - 
+                                                 Seen performance=15.55, Unseen performance=8.26, GZSL performance=10.79, ZSL performance=8.71 
+                                                 
+INFO - 03/20/25 16:14:23 - 0:01:09 - FINISHED
+INFO - 03/20/25 16:14:23 - 0:01:09 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_16.pt
+INFO - 03/20/25 16:14:23 - 0:01:09 - Load from epoch: 17
+INFO - 03/20/25 16:14:26 - 0:01:12 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:26 - 0:01:12 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:27 - 0:01:13 - 
+                                                 Seen performance=16.75, Unseen performance=9.06, GZSL performance=11.76, ZSL performance=9.61 
+                                                 
+INFO - 03/20/25 16:14:27 - 0:01:13 - FINISHED
+INFO - 03/20/25 16:14:27 - 0:01:13 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_17.pt
+INFO - 03/20/25 16:14:27 - 0:01:13 - Load from epoch: 18
+INFO - 03/20/25 16:14:30 - 0:01:16 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:30 - 0:01:16 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:31 - 0:01:17 - 
+                                                 Seen performance=17.56, Unseen performance=9.25, GZSL performance=12.12, ZSL performance=9.93 
+                                                 
+INFO - 03/20/25 16:14:31 - 0:01:17 - FINISHED
+INFO - 03/20/25 16:14:31 - 0:01:17 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_18.pt
+INFO - 03/20/25 16:14:31 - 0:01:17 - Load from epoch: 19
+INFO - 03/20/25 16:14:34 - 0:01:20 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:34 - 0:01:20 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:35 - 0:01:21 - 
+                                                 Seen performance=16.65, Unseen performance=9.03, GZSL performance=11.71, ZSL performance=9.64 
+                                                 
+INFO - 03/20/25 16:14:35 - 0:01:21 - FINISHED
+INFO - 03/20/25 16:14:35 - 0:01:21 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_19.pt
+INFO - 03/20/25 16:14:35 - 0:01:21 - Load from epoch: 20
+INFO - 03/20/25 16:14:38 - 0:01:24 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:38 - 0:01:24 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:39 - 0:01:25 - 
+                                                 Seen performance=16.74, Unseen performance=8.75, GZSL performance=11.49, ZSL performance=9.26 
+                                                 
+INFO - 03/20/25 16:14:39 - 0:01:25 - FINISHED
+INFO - 03/20/25 16:14:39 - 0:01:25 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_20.pt
+INFO - 03/20/25 16:14:39 - 0:01:25 - Load from epoch: 21
+INFO - 03/20/25 16:14:42 - 0:01:28 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:42 - 0:01:28 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:43 - 0:01:29 - 
+                                                 Seen performance=17.71, Unseen performance=7.81, GZSL performance=10.84, ZSL performance=8.41 
+                                                 
+INFO - 03/20/25 16:14:43 - 0:01:29 - FINISHED
+INFO - 03/20/25 16:14:43 - 0:01:29 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_21.pt
+INFO - 03/20/25 16:14:43 - 0:01:29 - Load from epoch: 22
+INFO - 03/20/25 16:14:46 - 0:01:32 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:46 - 0:01:32 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:46 - 0:01:33 - 
+                                                 Seen performance=17.03, Unseen performance=9.19, GZSL performance=11.94, ZSL performance=9.76 
+                                                 
+INFO - 03/20/25 16:14:46 - 0:01:33 - FINISHED
+INFO - 03/20/25 16:14:46 - 0:01:33 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_22.pt
+INFO - 03/20/25 16:14:47 - 0:01:33 - Load from epoch: 23
+INFO - 03/20/25 16:14:50 - 0:01:36 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:50 - 0:01:36 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:50 - 0:01:37 - 
+                                                 Seen performance=17.35, Unseen performance=8.69, GZSL performance=11.58, ZSL performance=9.09 
+                                                 
+INFO - 03/20/25 16:14:50 - 0:01:37 - FINISHED
+INFO - 03/20/25 16:14:50 - 0:01:37 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_23.pt
+INFO - 03/20/25 16:14:50 - 0:01:37 - Load from epoch: 24
+INFO - 03/20/25 16:14:54 - 0:01:40 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:54 - 0:01:40 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:54 - 0:01:41 - 
+                                                 Seen performance=17.54, Unseen performance=8.89, GZSL performance=11.80, ZSL performance=9.45 
+                                                 
+INFO - 03/20/25 16:14:54 - 0:01:41 - FINISHED
+INFO - 03/20/25 16:14:54 - 0:01:41 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_24.pt
+INFO - 03/20/25 16:14:54 - 0:01:41 - Load from epoch: 25
+INFO - 03/20/25 16:14:57 - 0:01:44 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:14:57 - 0:01:44 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:14:58 - 0:01:45 - 
+                                                 Seen performance=18.67, Unseen performance=8.20, GZSL performance=11.40, ZSL performance=8.67 
+                                                 
+INFO - 03/20/25 16:14:58 - 0:01:45 - FINISHED
+INFO - 03/20/25 16:14:58 - 0:01:45 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_25.pt
+INFO - 03/20/25 16:14:58 - 0:01:45 - Load from epoch: 26
+INFO - 03/20/25 16:15:01 - 0:01:48 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:01 - 0:01:48 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:02 - 0:01:48 - 
+                                                 Seen performance=18.63, Unseen performance=8.50, GZSL performance=11.67, ZSL performance=8.78 
+                                                 
+INFO - 03/20/25 16:15:02 - 0:01:48 - FINISHED
+INFO - 03/20/25 16:15:02 - 0:01:48 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_26.pt
+INFO - 03/20/25 16:15:02 - 0:01:49 - Load from epoch: 27
+INFO - 03/20/25 16:15:05 - 0:01:52 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:05 - 0:01:52 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:06 - 0:01:52 - 
+                                                 Seen performance=15.78, Unseen performance=8.31, GZSL performance=10.89, ZSL performance=8.50 
+                                                 
+INFO - 03/20/25 16:15:06 - 0:01:52 - FINISHED
+INFO - 03/20/25 16:15:06 - 0:01:52 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_27.pt
+INFO - 03/20/25 16:15:06 - 0:01:52 - Load from epoch: 28
+INFO - 03/20/25 16:15:09 - 0:01:55 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:09 - 0:01:55 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:10 - 0:01:56 - 
+                                                 Seen performance=13.02, Unseen performance=8.41, GZSL performance=10.22, ZSL performance=8.61 
+                                                 
+INFO - 03/20/25 16:15:10 - 0:01:56 - FINISHED
+INFO - 03/20/25 16:15:10 - 0:01:56 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_28.pt
+INFO - 03/20/25 16:15:10 - 0:01:56 - Load from epoch: 29
+INFO - 03/20/25 16:15:13 - 0:01:59 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:13 - 0:01:59 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:14 - 0:02:00 - 
+                                                 Seen performance=12.48, Unseen performance=8.34, GZSL performance=10.00, ZSL performance=8.57 
+                                                 
+INFO - 03/20/25 16:15:14 - 0:02:00 - FINISHED
+INFO - 03/20/25 16:15:14 - 0:02:00 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_29.pt
+INFO - 03/20/25 16:15:14 - 0:02:00 - Load from epoch: 30
+INFO - 03/20/25 16:15:17 - 0:02:03 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:17 - 0:02:03 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:18 - 0:02:04 - 
+                                                 Seen performance=11.82, Unseen performance=8.15, GZSL performance=9.65, ZSL performance=8.34 
+                                                 
+INFO - 03/20/25 16:15:18 - 0:02:04 - FINISHED
+INFO - 03/20/25 16:15:18 - 0:02:04 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_30.pt
+INFO - 03/20/25 16:15:18 - 0:02:04 - Load from epoch: 31
+INFO - 03/20/25 16:15:21 - 0:02:07 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:21 - 0:02:07 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:22 - 0:02:08 - 
+                                                 Seen performance=18.19, Unseen performance=8.97, GZSL performance=12.01, ZSL performance=9.38 
+                                                 
+INFO - 03/20/25 16:15:22 - 0:02:08 - FINISHED
+INFO - 03/20/25 16:15:22 - 0:02:08 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_31.pt
+INFO - 03/20/25 16:15:22 - 0:02:08 - Load from epoch: 32
+INFO - 03/20/25 16:15:25 - 0:02:11 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:25 - 0:02:11 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:26 - 0:02:12 - 
+                                                 Seen performance=19.22, Unseen performance=9.01, GZSL performance=12.26, ZSL performance=9.47 
+                                                 
+INFO - 03/20/25 16:15:26 - 0:02:12 - FINISHED
+INFO - 03/20/25 16:15:26 - 0:02:12 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_32.pt
+INFO - 03/20/25 16:15:26 - 0:02:12 - Load from epoch: 33
+INFO - 03/20/25 16:15:29 - 0:02:15 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:29 - 0:02:15 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:30 - 0:02:16 - 
+                                                 Seen performance=19.11, Unseen performance=9.59, GZSL performance=12.77, ZSL performance=9.96 
+                                                 
+INFO - 03/20/25 16:15:30 - 0:02:16 - FINISHED
+INFO - 03/20/25 16:15:30 - 0:02:16 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_33.pt
+INFO - 03/20/25 16:15:30 - 0:02:16 - Load from epoch: 34
+INFO - 03/20/25 16:15:33 - 0:02:19 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:33 - 0:02:19 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:34 - 0:02:20 - 
+                                                 Seen performance=18.44, Unseen performance=9.26, GZSL performance=12.33, ZSL performance=9.66 
+                                                 
+INFO - 03/20/25 16:15:34 - 0:02:20 - FINISHED
+INFO - 03/20/25 16:15:34 - 0:02:20 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_34.pt
+INFO - 03/20/25 16:15:34 - 0:02:20 - Load from epoch: 35
+INFO - 03/20/25 16:15:37 - 0:02:23 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:37 - 0:02:23 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:38 - 0:02:24 - 
+                                                 Seen performance=18.98, Unseen performance=8.94, GZSL performance=12.15, ZSL performance=9.42 
+                                                 
+INFO - 03/20/25 16:15:38 - 0:02:24 - FINISHED
+INFO - 03/20/25 16:15:38 - 0:02:24 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_35.pt
+INFO - 03/20/25 16:15:38 - 0:02:24 - Load from epoch: 36
+INFO - 03/20/25 16:15:41 - 0:02:27 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:41 - 0:02:27 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:42 - 0:02:28 - 
+                                                 Seen performance=19.95, Unseen performance=8.93, GZSL performance=12.34, ZSL performance=9.46 
+                                                 
+INFO - 03/20/25 16:15:42 - 0:02:28 - FINISHED
+INFO - 03/20/25 16:15:42 - 0:02:28 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_36.pt
+INFO - 03/20/25 16:15:42 - 0:02:28 - Load from epoch: 37
+INFO - 03/20/25 16:15:45 - 0:02:31 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:45 - 0:02:31 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:46 - 0:02:32 - 
+                                                 Seen performance=20.97, Unseen performance=8.89, GZSL performance=12.49, ZSL performance=9.33 
+                                                 
+INFO - 03/20/25 16:15:46 - 0:02:32 - FINISHED
+INFO - 03/20/25 16:15:46 - 0:02:32 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_37.pt
+INFO - 03/20/25 16:15:46 - 0:02:32 - Load from epoch: 38
+INFO - 03/20/25 16:15:49 - 0:02:35 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:49 - 0:02:35 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:49 - 0:02:36 - 
+                                                 Seen performance=19.54, Unseen performance=8.66, GZSL performance=12.00, ZSL performance=9.10 
+                                                 
+INFO - 03/20/25 16:15:49 - 0:02:36 - FINISHED
+INFO - 03/20/25 16:15:49 - 0:02:36 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_38.pt
+INFO - 03/20/25 16:15:50 - 0:02:36 - Load from epoch: 39
+INFO - 03/20/25 16:15:53 - 0:02:39 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:53 - 0:02:39 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:53 - 0:02:40 - 
+                                                 Seen performance=19.70, Unseen performance=8.98, GZSL performance=12.34, ZSL performance=9.31 
+                                                 
+INFO - 03/20/25 16:15:53 - 0:02:40 - FINISHED
+INFO - 03/20/25 16:15:53 - 0:02:40 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_39.pt
+INFO - 03/20/25 16:15:54 - 0:02:40 - Load from epoch: 40
+INFO - 03/20/25 16:15:57 - 0:02:43 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:15:57 - 0:02:43 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:15:57 - 0:02:44 - 
+                                                 Seen performance=20.41, Unseen performance=8.15, GZSL performance=11.65, ZSL performance=8.60 
+                                                 
+INFO - 03/20/25 16:15:57 - 0:02:44 - FINISHED
+INFO - 03/20/25 16:15:57 - 0:02:44 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_40.pt
+INFO - 03/20/25 16:15:57 - 0:02:44 - Load from epoch: 41
+INFO - 03/20/25 16:16:00 - 0:02:47 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:00 - 0:02:47 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:01 - 0:02:48 - 
+                                                 Seen performance=19.46, Unseen performance=8.82, GZSL performance=12.13, ZSL performance=9.17 
+                                                 
+INFO - 03/20/25 16:16:01 - 0:02:48 - FINISHED
+INFO - 03/20/25 16:16:01 - 0:02:48 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_41.pt
+INFO - 03/20/25 16:16:01 - 0:02:48 - Load from epoch: 42
+INFO - 03/20/25 16:16:04 - 0:02:51 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:04 - 0:02:51 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:05 - 0:02:51 - 
+                                                 Seen performance=18.99, Unseen performance=8.82, GZSL performance=12.05, ZSL performance=9.21 
+                                                 
+INFO - 03/20/25 16:16:05 - 0:02:51 - FINISHED
+INFO - 03/20/25 16:16:05 - 0:02:51 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_42.pt
+INFO - 03/20/25 16:16:05 - 0:02:52 - Load from epoch: 43
+INFO - 03/20/25 16:16:08 - 0:02:55 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:08 - 0:02:55 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:09 - 0:02:55 - 
+                                                 Seen performance=19.51, Unseen performance=8.72, GZSL performance=12.05, ZSL performance=9.03 
+                                                 
+INFO - 03/20/25 16:16:09 - 0:02:55 - FINISHED
+INFO - 03/20/25 16:16:09 - 0:02:55 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_43.pt
+INFO - 03/20/25 16:16:09 - 0:02:56 - Load from epoch: 44
+INFO - 03/20/25 16:16:12 - 0:02:59 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:12 - 0:02:59 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:13 - 0:02:59 - 
+                                                 Seen performance=20.09, Unseen performance=8.54, GZSL performance=11.98, ZSL performance=8.97 
+                                                 
+INFO - 03/20/25 16:16:13 - 0:02:59 - FINISHED
+INFO - 03/20/25 16:16:13 - 0:02:59 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_44.pt
+INFO - 03/20/25 16:16:13 - 0:02:59 - Load from epoch: 45
+INFO - 03/20/25 16:16:16 - 0:03:02 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:16 - 0:03:02 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:17 - 0:03:03 - 
+                                                 Seen performance=19.76, Unseen performance=8.59, GZSL performance=11.98, ZSL performance=9.00 
+                                                 
+INFO - 03/20/25 16:16:17 - 0:03:03 - FINISHED
+INFO - 03/20/25 16:16:17 - 0:03:03 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_45.pt
+INFO - 03/20/25 16:16:17 - 0:03:03 - Load from epoch: 46
+INFO - 03/20/25 16:16:20 - 0:03:06 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:20 - 0:03:06 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:21 - 0:03:07 - 
+                                                 Seen performance=19.57, Unseen performance=8.62, GZSL performance=11.97, ZSL performance=8.90 
+                                                 
+INFO - 03/20/25 16:16:21 - 0:03:07 - FINISHED
+INFO - 03/20/25 16:16:21 - 0:03:07 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_46.pt
+INFO - 03/20/25 16:16:21 - 0:03:07 - Load from epoch: 47
+INFO - 03/20/25 16:16:24 - 0:03:10 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:24 - 0:03:10 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:25 - 0:03:11 - 
+                                                 Seen performance=19.27, Unseen performance=9.05, GZSL performance=12.31, ZSL performance=9.43 
+                                                 
+INFO - 03/20/25 16:16:25 - 0:03:11 - FINISHED
+INFO - 03/20/25 16:16:25 - 0:03:11 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_47.pt
+INFO - 03/20/25 16:16:25 - 0:03:11 - Load from epoch: 48
+INFO - 03/20/25 16:16:28 - 0:03:14 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:28 - 0:03:14 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:29 - 0:03:15 - 
+                                                 Seen performance=20.19, Unseen performance=8.46, GZSL performance=11.93, ZSL performance=8.79 
+                                                 
+INFO - 03/20/25 16:16:29 - 0:03:15 - FINISHED
+INFO - 03/20/25 16:16:29 - 0:03:15 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_48.pt
+INFO - 03/20/25 16:16:29 - 0:03:15 - Load from epoch: 49
+INFO - 03/20/25 16:16:32 - 0:03:18 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:32 - 0:03:18 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:33 - 0:03:19 - 
+                                                 Seen performance=18.49, Unseen performance=8.78, GZSL performance=11.91, ZSL performance=9.15 
+                                                 
+INFO - 03/20/25 16:16:33 - 0:03:19 - FINISHED
+INFO - 03/20/25 16:16:33 - 0:03:19 - Loading model weights from runs/attention_activity_all_main/checkpoints/DFCNet_score_ckpt_49.pt
+INFO - 03/20/25 16:16:33 - 0:03:19 - Load from epoch: 50
+INFO - 03/20/25 16:16:36 - 0:03:22 - Validation betas:	Audio=1.399999976158142	Video=1.399999976158142	Both=1.399999976158142
+INFO - 03/20/25 16:16:36 - 0:03:22 - Best beta combined: 1.399999976158142
+INFO - 03/20/25 16:16:36 - 0:03:23 - 
+                                                 Seen performance=20.60, Unseen performance=8.57, GZSL performance=12.11, ZSL performance=8.95 
+
+INFO - 03/20/25 16:17:16 - 0:04:02 - FINISHED
